@@ -41,7 +41,8 @@ export function SiteFooter() {
               <li key={c.slug}>
                 <Link
                   to={`${siteConfig.basePath}${c.href}`}
-                  search={c.search}
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  search={(c.search ?? {}) as any}
                   className="text-primary-foreground/75 transition-colors hover:text-primary-foreground"
                 >
                   {c.name}
