@@ -4,6 +4,7 @@
  */
 export const siteConfig = {
   name: "Madulo Properties",
+  domain: "maduloproperties.co.za",
   tagline: "Rooted in Heritage. Building Tomorrow.",
   description:
     "Madulo Properties — residential, commercial, land and development opportunities across South Africa.",
@@ -22,15 +23,12 @@ export const siteConfig = {
   basePath: "/preview" as const,
 
   contact: {
-    /** PLACEHOLDER — replace with the real WhatsApp number in international format, digits only. */
-    whatsappNumber: "27000000000",
+    whatsappNumber: "27761890007",
     whatsappDefaultMessage: "Hello Madulo Properties, I would like to enquire about a property.",
-    /** PLACEHOLDER */
-    phone: "+27 00 000 0000",
-    /** PLACEHOLDER */
-    email: "info@maduloproperties.example",
-    /** PLACEHOLDER */
-    address: "Address to be confirmed",
+    phone: "076 189 0007",
+    email: "info@maduloproperties.co.za",
+    address: "2025 Cnr Lucas Mangope & Jubilee Road, Kudube Unit 1, Temba, 0407",
+    hours: "Closes at 18:00",
   },
 
   /** PLACEHOLDER social links — supply real URLs later. */
