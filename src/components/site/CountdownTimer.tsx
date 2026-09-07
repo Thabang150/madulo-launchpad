@@ -53,7 +53,7 @@ export function CountdownTimer({ dark = true }: { dark?: boolean }) {
         {cells.map((cell) => (
           <div
             key={cell.label}
-            className={`flex flex-col items-center border px-2 py-6 sm:py-8 ${
+            className={`flex flex-col items-center border px-1 py-5 sm:px-2 sm:py-8 ${
               dark ? "border-primary-foreground/15" : "border-border bg-card"
             }`}
           >
