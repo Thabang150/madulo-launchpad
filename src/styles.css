@@ -177,8 +177,44 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes logo-breathe {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes line-grow {
+  from { transform: scaleY(0); opacity: 0; }
+  to { transform: scaleY(1); opacity: 1; }
+}
+
 @utility animate-rise {
   animation: rise 0.7s var(--ease-premium) both;
+}
+
+@utility delay-120 { animation-delay: 120ms; }
+@utility delay-240 { animation-delay: 240ms; }
+@utility delay-360 { animation-delay: 360ms; }
+
+@utility logo-breathe {
+  animation: logo-breathe 5s ease-in-out 0.8s infinite;
+}
+
+@utility coming-soon-line {
+  position: absolute;
+  top: 13%;
+  bottom: 13%;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, var(--color-border) 20%, var(--color-border) 80%, transparent);
+  transform-origin: center;
+  animation: line-grow 1.2s var(--ease-premium) 0.4s both;
+}
+
+@utility coming-soon-line-left {
+  left: max(1.25rem, calc((100vw - 80rem) / 2));
+}
+
+@utility coming-soon-line-right {
+  right: max(1.25rem, calc((100vw - 80rem) / 2));
 }
 
 /* Scroll reveal: toggled by the Reveal component */
