@@ -60,24 +60,14 @@ function HomePage() {
     <>
       {/* Hero */}
       <section className="border-b border-border">
-        <div className="relative bg-gradient-to-b from-black/10 to-black/30 py-20 lg:py-28">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: "url('/src/assets/madulo-logo.jpg')",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              opacity: 0.4,
-            }}
-          />
+        <div
+          className="relative bg-cover bg-center py-20 lg:py-28"
+          style={{
+            backgroundImage: "url('/src/assets/madulo hero.jpg')",
+          }}
+        >
+          <div className="absolute inset-0 bg-black/40" />
           <div className="container-site relative z-10">
-            <div className="mb-8 flex items-center">
-              <img
-                src="/src/assets/madulo-logo.jpg"
-                alt="Madulo Properties"
-                className="h-12 w-auto"
-              />
-            </div>
             <p className="eyebrow animate-rise text-white/90">{siteConfig.tagline}</p>
             <h1 className="animate-rise delay-120 mt-6 max-w-3xl text-4xl leading-[1.08] text-white sm:text-5xl lg:text-6xl">
               Discover property. Find your place. Connect with Madulo Properties.
