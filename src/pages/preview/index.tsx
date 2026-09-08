@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
+import { listings } from '../../data/listings';
 
 export default function PreviewHome() {
+  const heroImage = listings[0]?.galleryImgs?.[0] || '';
+  const [location, setLocation] = useState('');
+  const [category, setCategory] = useState('All');
+  const categories = ['All', 'Apartment/Flat', 'House (Standalone)', 'Townhouse', 'Vacant Land', 'Farm', 'Commercial', 'Other'];
+
   return (
-    <div style={{ fontFamily: 'Inter, system-ui, -apple-system', padding: 24 }}>
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+    <div style={{ fontFamily: 'Inter, system-ui, -apple-system', minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 24 }}>
         <div style={{ fontWeight: 700, fontSize: 20 }}>Madulo Properties — Preview</div>
         <nav style={{ display: 'flex', gap: 12 }}>
           <Link href="/">Coming Soon</Link>
@@ -14,27 +20,44 @@ export default function PreviewHome() {
         </nav>
       </header>
 
-      <main>
-        <section style={{ padding: 24, background: '#f7f7f8', borderRadius: 12, marginBottom: 24 }}>
-          <h1 style={{ margin: 0 }}>Discover Property. Find Your Place. Connect with Madulo Properties.</h1>
-          <p style={{ color: '#555' }}>Search South African properties curated from Property24. This is the preview site — property clicks take you to the original Property24 listing.</p>
+      <main style={{ flex: 1 }}>
+        <section style={{ position: 'relative', height: 420, display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+          {heroImage ? (
+            <div style={{ position: 'absolute', inset: 0, backgroundImage: `url(${heroImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
+          ) : (
+            <div style={{ position: 'absolute', inset: 0, background: '#f3f4f6' }} />
+          )}
 
-          <div style={{ marginTop: 18, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-            <input placeholder="Location (e.g. Olifantsvlei, Kibler Park)" style={{ padding: '10px 12px', flex: '1 1 240px' }} />
-            <select style={{ padding: '10px 12px' }}>
-              <option>All types</option>
-            </select>
-            <select style={{ padding: '10px 12px' }}>
-              <option>Buy</option>
-              <option>Rent</option>
-              <option>All</option>
-            </select>
-            <Link href="/preview/properties"><a style={{ background: '#0b8457', color: '#fff', padding: '10px 14px', borderRadius: 8, textDecoration: 'none' }}>Search Properties</a></Link>
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(8,10,10,0.18), rgba(8,10,10,0.36))' }} />
+
+          <div style={{ position: 'relative', zIndex: 2, width: '100%', maxWidth: 1100, padding: 24, color: '#fff' }}>
+            <h1 style={{ margin: '0 0 8px 0', fontSize: 36 }}>Discover Property. Find Your Place.</h1>
+            <p style={{ marginTop: 0, marginBottom: 18, color: 'rgba(255,255,255,0.9)' }}>Search curated South African properties sourced from Property24 — click through to view full listings.</p>
+
+            <div style={{ background: 'rgba(255,255,255,0.95)', padding: 16, borderRadius: 10, display: 'flex', gap: 12, alignItems: 'center', color: '#111', boxShadow: '0 8px 30px rgba(2,6,23,0.12)' }}>
+              <input aria-label="Location" value={location} onChange={e=>setLocation(e.target.value)} placeholder="Location (e.g. Olifantsvlei, Kibler Park)" style={{ flex: '1 1 240px', padding: '12px 14px', borderRadius: 8, border: '1px solid #e6e6e6' }} />
+
+              <select aria-label="Category" value={category} onChange={e=>setCategory(e.target.value)} style={{ padding: '12px 14px', borderRadius: 8, border: '1px solid #e6e6e6' }}>
+                {categories.map(c=> <option key={c} value={c}>{c}</option>)}
+              </select>
+
+              <select aria-label="Transaction" defaultValue="All" style={{ padding: '12px 14px', borderRadius: 8, border: '1px solid #e6e6e6' }}>
+                <option>All</option>
+                <option>Buy</option>
+                <option>Rent</option>
+              </select>
+
+              <Link href="/preview/properties"><a style={{ background: '#0b8457', color: '#fff', padding: '12px 18px', borderRadius: 8, textDecoration: 'none' }}>Search Properties</a></Link>
+            </div>
+
+            <div style={{ marginTop: 12, color: 'rgba(255,255,255,0.85)', fontSize: 13 }}>
+              <strong>Quick filters:</strong> Apartments · Houses · Townhouses · Vacant Land · Commercial
+            </div>
           </div>
         </section>
 
-        <section style={{ marginBottom: 24 }}>
-          <h2>Featured Properties</h2>
+        <section style={{ padding: 24 }}>
+          <h2 style={{ marginTop: 0 }}>Featured Properties</h2>
           <p style={{ color: '#555', marginTop: 4 }}>A tasteful selection from the current listings.</p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 12, marginTop: 12 }}>
             <Link href="/preview/properties"><a style={{ display: 'block', padding: 18, borderRadius: 8, border: '1px solid #eee', textDecoration: 'none', color: 'inherit' }}>
@@ -43,18 +66,17 @@ export default function PreviewHome() {
           </div>
         </section>
 
-        <section>
+        <section style={{ padding: 24 }}>
           <h3>Categories</h3>
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-            <Link href="/preview/properties"><a style={{ padding: '10px 14px', borderRadius: 8, background: '#fff', border: '1px solid #eee', textDecoration: 'none' }}>Residential</a></Link>
-            <Link href="/preview/properties"><a style={{ padding: '10px 14px', borderRadius: 8, background: '#fff', border: '1px solid #eee', textDecoration: 'none' }}>Commercial</a></Link>
-            <Link href="/preview/properties"><a style={{ padding: '10px 14px', borderRadius: 8, background: '#fff', border: '1px solid #eee', textDecoration: 'none' }}>Land & Development</a></Link>
-            <Link href="/preview/calculators"><a style={{ padding: '10px 14px', borderRadius: 8, background: '#fff', border: '1px solid #eee', textDecoration: 'none' }}>Calculators</a></Link>
+            {categories.slice(1).map(c => (
+              <Link key={c} href="/preview/properties"><a style={{ padding: '10px 14px', borderRadius: 8, background: '#fff', border: '1px solid #eee', textDecoration: 'none' }}>{c}</a></Link>
+            ))}
           </div>
         </section>
       </main>
 
-      <footer style={{ marginTop: 40, color: '#666' }}>
+      <footer style={{ padding: 24, color: '#666' }}>
         <p style={{ margin: 0 }}>Madulo Properties — Preview</p>
       </footer>
 

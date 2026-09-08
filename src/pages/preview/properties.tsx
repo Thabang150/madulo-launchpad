@@ -4,12 +4,10 @@ import Link from 'next/link';
 
 const parsePrice = (price: string) => Number(price.replace(/[^0-9]/g, '')) || 0;
 const getTransactionType = (l: Listing) => (l.listingUrl.includes('/to-rent/') ? 'Rent' : 'Buy');
-
 const parseLocation = (l: Listing) => {
   try {
     const url = new URL(l.listingUrl);
     const parts = url.pathname.split('/').filter(Boolean);
-    // find 'for-sale' or 'to-rent' then take next segment as area
     const idx = parts.findIndex(p => p === 'for-sale' || p === 'to-rent');
     if (idx >= 0 && parts.length > idx + 1) return decodeURIComponent(parts[idx + 1]).replace(/-/g, ' ');
     return '';
@@ -20,40 +18,57 @@ const parseLocation = (l: Listing) => {
 
 const formatNumber = (n: number) => n.toLocaleString();
 
+function mapToCategory(pt: string) {
+  const s = (pt || '').toLowerCase();
+  if (s.includes('apartment') || s.includes('flat')) return 'Apartment/Flat';
+  if (s.includes('townhouse')) return 'Townhouse';
+  if (s.includes('vacant') || s.includes('land')) return 'Vacant Land';
+  if (s.includes('farm')) return 'Farm';
+  if (s.includes('commercial')) return 'Commercial';
+  // treat generic 'house' or types with 'bedroom' & 'house' as standalone
+  if (s.includes('house') || s.includes('stand-alone') || s.includes('stand alone') || s.includes('standalone') || s.includes('home')) return 'House (Standalone)';
+  return 'Other';
+}
+
 export default function PropertiesPage() {
   const [transaction, setTransaction] = useState<'All' | 'Buy' | 'Rent'>('All');
-  const [type, setType] = useState('All');
+  const [category, setCategory] = useState('All');
   const [location, setLocation] = useState('All');
   const [minPrice, setMinPrice] = useState('0');
   const [maxPrice, setMaxPrice] = useState('0');
-  const [bedrooms, setBedrooms] = useState('All');
+  const [minBeds, setMinBeds] = useState('0');
+  const [minBaths, setMinBaths] = useState('0');
   const [visible, setVisible] = useState(8);
 
   const enriched = useMemo(() =>
-    listings.map(l => ({ ...l, _priceNum: parsePrice(l.price), _transaction: getTransactionType(l), _location: parseLocation(l) })),
+    listings.map(l => ({ ...l, _priceNum: parsePrice(l.price), _transaction: getTransactionType(l), _location: parseLocation(l), _category: mapToCategory(l.propertyType) })),
     []);
 
-  const propertyTypes = useMemo(() => ['All', ...Array.from(new Set(enriched.map(e => e.propertyType).filter(Boolean)))], [enriched]);
+  const categories = useMemo(() => ['All', ...Array.from(new Set(enriched.map(e => e._category).filter(Boolean)))], [enriched]);
   const locations = useMemo(() => ['All', ...Array.from(new Set(enriched.map(e => e._location).filter(Boolean)))], [enriched]);
-  const bedroomOptions = useMemo(() => ['All', ...Array.from(new Set(enriched.map(e => e.bedrooms).filter(Boolean)))], [enriched]);
-
-  const prices = enriched.map(e => e._priceNum).filter(Boolean).sort((a,b)=>a-b);
-  const minAvailable = prices[0] || 0;
-  const maxAvailable = prices[prices.length - 1] || 0;
 
   const filtered = useMemo(() => {
     return enriched.filter(e => {
       if (transaction !== 'All' && e._transaction !== transaction) return false;
-      if (type !== 'All' && e.propertyType !== type) return false;
+      if (category !== 'All' && e._category !== category) return false;
       if (location !== 'All' && e._location !== location) return false;
       const min = Number(minPrice) || 0;
       const max = Number(maxPrice) || Infinity;
       if (min && e._priceNum < min) return false;
-      if (max && e._priceNum > max) return false;
-      if (bedrooms !== 'All' && e.bedrooms !== bedrooms) return false;
+      if (max && max > 0 && e._priceNum > max) return false;
+      const bedsFilter = Number(minBeds) || 0;
+      if (bedsFilter && e.bedrooms) {
+        const b = Number(e.bedrooms.replace(/[^0-9]/g, '')) || 0;
+        if (b < bedsFilter) return false;
+      }
+      const bathsFilter = Number(minBaths) || 0;
+      if (bathsFilter && e.bathrooms) {
+        const b = Number(e.bathrooms.replace(/[^0-9]/g, '')) || 0;
+        if (b < bathsFilter) return false;
+      }
       return true;
     });
-  }, [enriched, transaction, type, location, minPrice, maxPrice, bedrooms]);
+  }, [enriched, transaction, category, location, minPrice, maxPrice, minBeds, minBaths]);
 
   return (
     <div style={{ fontFamily: 'Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial', padding: 24 }}>
@@ -87,9 +102,9 @@ export default function PropertiesPage() {
           </label>
 
           <label>
-            Property type<br/>
-            <select value={type} onChange={e => setType(e.target.value)}>
-              {propertyTypes.map(t => <option key={t} value={t}>{t}</option>)}
+            Category<br/>
+            <select value={category} onChange={e => setCategory(e.target.value)}>
+              {categories.map(t => <option key={t} value={t}>{t}</option>)}
             </select>
           </label>
 
@@ -102,35 +117,37 @@ export default function PropertiesPage() {
 
           <label>
             Min price<br/>
-            <select value={minPrice} onChange={e => setMinPrice(e.target.value)}>
-              <option value={0}>Any</option>
-              <option value={50000}>{'R ' + formatNumber(50000)}</option>
-              <option value={200000}>{'R ' + formatNumber(200000)}</option>
-              <option value={500000}>{'R ' + formatNumber(500000)}</option>
-              <option value={1000000}>{'R ' + formatNumber(1000000)}</option>
-            </select>
+            <input type="number" value={minPrice} onChange={e=>setMinPrice(e.target.value)} placeholder="0" />
           </label>
 
           <label>
             Max price<br/>
-            <select value={maxPrice} onChange={e => setMaxPrice(e.target.value)}>
+            <input type="number" value={maxPrice} onChange={e=>setMaxPrice(e.target.value)} placeholder="0" />
+          </label>
+
+          <label>
+            Min beds<br/>
+            <select value={minBeds} onChange={e=>setMinBeds(e.target.value)}>
               <option value={0}>Any</option>
-              <option value={500000}>{'R ' + formatNumber(500000)}</option>
-              <option value={1000000}>{'R ' + formatNumber(1000000)}</option>
-              <option value={5000000}>{'R ' + formatNumber(5000000)}</option>
-              <option value={10000000}>{'R ' + formatNumber(10000000)}</option>
+              <option value={1}>1+</option>
+              <option value={2}>2+</option>
+              <option value={3}>3+</option>
+              <option value={4}>4+</option>
             </select>
           </label>
 
           <label>
-            Bedrooms<br/>
-            <select value={bedrooms} onChange={e => setBedrooms(e.target.value)}>
-              {bedroomOptions.map(b => <option key={b} value={b}>{b}</option>)}
+            Min baths<br/>
+            <select value={minBaths} onChange={e=>setMinBaths(e.target.value)}>
+              <option value={0}>Any</option>
+              <option value={1}>1+</option>
+              <option value={2}>2+</option>
+              <option value={3}>3+</option>
             </select>
           </label>
 
           <div style={{ display: 'flex', alignItems: 'end', gap: 8 }}>
-            <button onClick={() => { setTransaction('All'); setType('All'); setLocation('All'); setMinPrice('0'); setMaxPrice('0'); setBedrooms('All'); }}>Clear</button>
+            <button onClick={() => { setTransaction('All'); setCategory('All'); setLocation('All'); setMinPrice('0'); setMaxPrice('0'); setMinBeds('0'); setMinBaths('0'); }}>Clear</button>
           </div>
         </section>
 
@@ -144,7 +161,7 @@ export default function PropertiesPage() {
               <div style={{ padding: 12, flex: '1 1 auto', display: 'flex', flexDirection: 'column' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', gap: 8 }}>
                   <div style={{ fontWeight: 700 }}>{item.price}</div>
-                  <div style={{ fontSize: 12, color: '#666' }}>{item.propertyType}</div>
+                  <div style={{ fontSize: 12, color: '#666' }}>{item._category}</div>
                 </div>
 
                 <div style={{ marginTop: 8, color: '#444', fontSize: 14, flex: 1 }}>{item.abbreviated}</div>
@@ -168,7 +185,7 @@ export default function PropertiesPage() {
         {filtered.length === 0 && (
           <div style={{ marginTop: 28, padding: 18, border: '1px dashed #ccc', borderRadius: 8 }}>
             <p style={{ margin: 0 }}>No properties found.</p>
-            <button style={{ marginTop: 8 }} onClick={() => { setTransaction('All'); setType('All'); setLocation('All'); setMinPrice('0'); setMaxPrice('0'); setBedrooms('All'); }}>Clear filters</button>
+            <button style={{ marginTop: 8 }} onClick={() => { setTransaction('All'); setCategory('All'); setLocation('All'); setMinPrice('0'); setMaxPrice('0'); setMinBeds('0'); setMinBaths('0'); }}>Clear filters</button>
           </div>
         )}
 
