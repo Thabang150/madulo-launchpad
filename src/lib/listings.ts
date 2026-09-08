@@ -14,15 +14,15 @@ export interface ListingView {
   propertyType: string;
   /** Broad grouping used by the category strip, e.g. "Residential". */
   category: string;
-  bedrooms?: number;
-  bathrooms?: number;
-  parking?: number;
-  size?: string;
-  description?: string;
-  image?: string;
-  suburb?: string;
-  city?: string;
-  province?: string;
+  bedrooms?: undefined | number;
+  bathrooms?: undefined | number;
+  parking?: undefined | number;
+  size?: undefined | string;
+  description?: undefined | string;
+  image?: undefined | string;
+  suburb?: undefined | string;
+  city?: undefined | string;
+  province?: undefined | string;
   location: string;
   listingUrl: string;
 }
@@ -107,9 +107,9 @@ export interface ListingFilters {
   location: string;
   propertyType: string;
   category: string;
-  minPrice?: number;
-  maxPrice?: number;
-  bedrooms?: number;
+  minPrice?: number | undefined;
+  maxPrice?: number | undefined;
+  bedrooms?: number | undefined;
 }
 
 export const emptyFilters: ListingFilters = {
