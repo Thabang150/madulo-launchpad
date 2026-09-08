@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { listings, Listing } from '../../data/listings';
 import Link from 'next/link';
+import { WHATSAPP_NUMBER } from '../../config';
 
 const parsePrice = (price: string) => Number(price.replace(/[^0-9]/g, '')) || 0;
 const getTransactionType = (l: Listing) => (l.listingUrl.includes('/to-rent/') ? 'Rent' : 'Buy');
@@ -25,7 +26,6 @@ function mapToCategory(pt: string) {
   if (s.includes('vacant') || s.includes('land')) return 'Vacant Land';
   if (s.includes('farm')) return 'Farm';
   if (s.includes('commercial')) return 'Commercial';
-  // treat generic 'house' or types with 'bedroom' & 'house' as standalone
   if (s.includes('house') || s.includes('stand-alone') || s.includes('stand alone') || s.includes('standalone') || s.includes('home')) return 'House (Standalone)';
   return 'Other';
 }
@@ -201,7 +201,7 @@ export default function PropertiesPage() {
       </footer>
 
       <div style={{ position: 'fixed', right: 18, bottom: 18 }}>
-        <a href="https://wa.me/27000000000" aria-label="Chat with us on WhatsApp" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#25D366', color: '#fff', padding: '10px 12px', borderRadius: 999, boxShadow: '0 6px 18px rgba(0,0,0,0.12)', textDecoration: 'none' }}>
+        <a href={`https://wa.me/${WHATSAPP_NUMBER}`} aria-label="Chat with us on WhatsApp" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#25D366', color: '#fff', padding: '10px 12px', borderRadius: 999, boxShadow: '0 6px 18px rgba(0,0,0,0.12)', textDecoration: 'none' }}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.52 3.48A11.94 11.94 0 0012 0C5.373 0 0 5.373 0 12c0 2.115.55 4.145 1.596 5.938L0 24l6.294-1.648A11.943 11.943 0 0012 24c6.627 0 12-5.373 12-12 0-3.2-1.246-6.177-3.48-8.52z" fill="#25D366"/><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.472-.148-.672.15-.198.297-.768.967-.94 1.166-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.884-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.173.198-.297.298-.495.099-.198.05-.372-.025-.52-.074-.148-.672-1.612-.92-2.206-.242-.579-.487-.5-.672-.51l-.573-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.064 2.876 1.213 3.074c.149.198 2.1 3.2 5.074 4.487 3.0 1.304 3.0 0.869 3.546 0.814.546-.05 1.758-.718 2.006-1.41.248-.693.248-1.287.173-1.41-.074-.124-.272-.198-.57-.347z" fill="#fff"/></svg>
           <span style={{ fontWeight: 700 }}>Chat with us on WhatsApp</span>
         </a>
