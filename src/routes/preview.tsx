@@ -1,11 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Logo } from "@/components/site/Logo";
+import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { SiteHeader } from "@/components/site/SiteHeader";
+import { SiteFooter } from "@/components/site/SiteFooter";
+import { WhatsAppButton } from "@/components/site/WhatsAppButton";
 import { siteConfig } from "@/config/site";
 
-/**
- * Temporary stand-in for the real website while it is built underneath the
- * public countdown. This file will become the site layout.
- */
+/** Layout for the website being developed behind the public countdown. */
 export const Route = createFileRoute("/preview")({
   head: () => ({
     meta: [
@@ -13,19 +12,18 @@ export const Route = createFileRoute("/preview")({
       { name: "robots", content: "noindex" },
     ],
   }),
-  component: PreviewPage,
+  component: PreviewLayout,
 });
 
-function PreviewPage() {
+function PreviewLayout() {
   return (
-    <main className="flex min-h-dvh flex-col items-center justify-center gap-6 bg-background px-6 text-center">
-      <Logo to={P_preview_home} size="lg" />
-      <h1 className="font-display text-3xl text-foreground">The website is in development</h1>
-      <p className="max-w-md text-sm text-muted-foreground">
-        This is where the full Madulo Properties website will appear for client preview.
-      </p>
-    </main>
+    <div className="flex min-h-dvh flex-col bg-background">
+      <SiteHeader />
+      <main className="flex-1">
+        <Outlet />
+      </main>
+      <SiteFooter />
+      <WhatsAppButton />
+    </div>
   );
 }
-
-const P_preview_home = "/preview";
