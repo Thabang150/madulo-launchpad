@@ -141,6 +141,26 @@ export function PropertyFilters({ value, onChange, onReset, variant = "panel", o
             </Select>
           </div>
 
+          <div className="flex flex-col gap-2">
+            <span className="eyebrow">Bathrooms</span>
+            <Select
+              value={value.bathrooms ? String(value.bathrooms) : ANY}
+              onValueChange={(v) => set({ bathrooms: v === ANY ? undefined : Number(v) })}
+            >
+              <SelectTrigger className="h-11 rounded-sm">
+                <SelectValue placeholder="Any" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={ANY}>Any</SelectItem>
+                {[1, 2, 3, 4].map((n) => (
+                  <SelectItem key={n} value={String(n)}>
+                    {n}+ bathrooms
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
           <div className="flex items-end gap-3">
             <Button type="submit" className="h-11 flex-1">
               Search Properties
