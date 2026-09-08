@@ -110,6 +110,7 @@ export interface ListingFilters {
   minPrice?: number | undefined;
   maxPrice?: number | undefined;
   bedrooms?: number | undefined;
+  bathrooms?: number | undefined;
 }
 
 export const emptyFilters: ListingFilters = {
@@ -129,6 +130,7 @@ export function filterListings(items: ListingView[], f: ListingFilters): Listing
     if (f.minPrice !== undefined && l.priceValue < f.minPrice) return false;
     if (f.maxPrice !== undefined && l.priceValue > f.maxPrice) return false;
     if (f.bedrooms !== undefined && (l.bedrooms ?? 0) < f.bedrooms) return false;
+    if (f.bathrooms !== undefined && (l.bathrooms ?? 0) < f.bathrooms) return false;
     return true;
   });
 }
