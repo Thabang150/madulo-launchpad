@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PreviewRouteImport } from './routes/preview'
 import { Route as PreviewIndexRouteImport } from './routes/preview.index'
+import { Route as PreviewPropertiesRouteImport } from './routes/preview.properties'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,28 +29,36 @@ const PreviewIndexRoute = PreviewIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PreviewRoute,
 } as any)
+const PreviewPropertiesRoute = PreviewPropertiesRouteImport.update({
+  id: '/properties',
+  path: '/properties',
+  getParentRoute: () => PreviewRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/preview': typeof PreviewRouteWithChildren
+  '/preview/properties': typeof PreviewPropertiesRoute
   '/preview/': typeof PreviewIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/preview/properties': typeof PreviewPropertiesRoute
   '/preview': typeof PreviewIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/preview': typeof PreviewRouteWithChildren
+  '/preview/properties': typeof PreviewPropertiesRoute
   '/preview/': typeof PreviewIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/preview' | '/preview/'
+  fullPaths: '/' | '/preview' | '/preview/properties' | '/preview/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/preview'
-  id: '__root__' | '/' | '/preview' | '/preview/'
+  to: '/' | '/preview/properties' | '/preview'
+  id: '__root__' | '/' | '/preview' | '/preview/properties' | '/preview/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -80,14 +89,23 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PreviewIndexRouteImport
       parentRoute: typeof PreviewRoute
     }
+    '/preview/properties': {
+      id: '/preview/properties'
+      path: '/properties'
+      fullPath: '/preview/properties'
+      preLoaderRoute: typeof PreviewPropertiesRouteImport
+      parentRoute: typeof PreviewRoute
+    }
   }
 }
 
 interface PreviewRouteChildren {
+  PreviewPropertiesRoute: typeof PreviewPropertiesRoute
   PreviewIndexRoute: typeof PreviewIndexRoute
 }
 
 const PreviewRouteChildren: PreviewRouteChildren = {
+  PreviewPropertiesRoute: PreviewPropertiesRoute,
   PreviewIndexRoute: PreviewIndexRoute,
 }
 
