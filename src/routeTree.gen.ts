@@ -12,6 +12,12 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PreviewRouteImport } from './routes/preview'
 import { Route as PreviewIndexRouteImport } from './routes/preview.index'
+import { Route as PreviewPropertiesRouteImport } from './routes/preview.properties'
+import { Route as PreviewCalculatorsIndexRouteImport } from './routes/preview.calculators.index'
+import { Route as PreviewCalculatorsAdditionalPaymentRouteImport } from './routes/preview.calculators.additional-payment'
+import { Route as PreviewCalculatorsAffordabilityRouteImport } from './routes/preview.calculators.affordability'
+import { Route as PreviewCalculatorsBondTransferCostsRouteImport } from './routes/preview.calculators.bond-transfer-costs'
+import { Route as PreviewCalculatorsHomeLoanRepaymentRouteImport } from './routes/preview.calculators.home-loan-repayment'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,28 +34,107 @@ const PreviewIndexRoute = PreviewIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PreviewRoute,
 } as any)
+const PreviewPropertiesRoute = PreviewPropertiesRouteImport.update({
+  id: '/properties',
+  path: '/properties',
+  getParentRoute: () => PreviewRoute,
+} as any)
+const PreviewCalculatorsIndexRoute = PreviewCalculatorsIndexRouteImport.update({
+  id: '/calculators/',
+  path: '/calculators/',
+  getParentRoute: () => PreviewRoute,
+} as any)
+const PreviewCalculatorsAdditionalPaymentRoute =
+  PreviewCalculatorsAdditionalPaymentRouteImport.update({
+    id: '/calculators/additional-payment',
+    path: '/calculators/additional-payment',
+    getParentRoute: () => PreviewRoute,
+  } as any)
+const PreviewCalculatorsAffordabilityRoute =
+  PreviewCalculatorsAffordabilityRouteImport.update({
+    id: '/calculators/affordability',
+    path: '/calculators/affordability',
+    getParentRoute: () => PreviewRoute,
+  } as any)
+const PreviewCalculatorsBondTransferCostsRoute =
+  PreviewCalculatorsBondTransferCostsRouteImport.update({
+    id: '/calculators/bond-transfer-costs',
+    path: '/calculators/bond-transfer-costs',
+    getParentRoute: () => PreviewRoute,
+  } as any)
+const PreviewCalculatorsHomeLoanRepaymentRoute =
+  PreviewCalculatorsHomeLoanRepaymentRouteImport.update({
+    id: '/calculators/home-loan-repayment',
+    path: '/calculators/home-loan-repayment',
+    getParentRoute: () => PreviewRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/preview': typeof PreviewRouteWithChildren
+  '/preview/properties': typeof PreviewPropertiesRoute
   '/preview/': typeof PreviewIndexRoute
+  '/preview/calculators/additional-payment': typeof PreviewCalculatorsAdditionalPaymentRoute
+  '/preview/calculators/affordability': typeof PreviewCalculatorsAffordabilityRoute
+  '/preview/calculators/bond-transfer-costs': typeof PreviewCalculatorsBondTransferCostsRoute
+  '/preview/calculators/home-loan-repayment': typeof PreviewCalculatorsHomeLoanRepaymentRoute
+  '/preview/calculators/': typeof PreviewCalculatorsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/preview/properties': typeof PreviewPropertiesRoute
   '/preview': typeof PreviewIndexRoute
+  '/preview/calculators/additional-payment': typeof PreviewCalculatorsAdditionalPaymentRoute
+  '/preview/calculators/affordability': typeof PreviewCalculatorsAffordabilityRoute
+  '/preview/calculators/bond-transfer-costs': typeof PreviewCalculatorsBondTransferCostsRoute
+  '/preview/calculators/home-loan-repayment': typeof PreviewCalculatorsHomeLoanRepaymentRoute
+  '/preview/calculators': typeof PreviewCalculatorsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/preview': typeof PreviewRouteWithChildren
+  '/preview/properties': typeof PreviewPropertiesRoute
   '/preview/': typeof PreviewIndexRoute
+  '/preview/calculators/additional-payment': typeof PreviewCalculatorsAdditionalPaymentRoute
+  '/preview/calculators/affordability': typeof PreviewCalculatorsAffordabilityRoute
+  '/preview/calculators/bond-transfer-costs': typeof PreviewCalculatorsBondTransferCostsRoute
+  '/preview/calculators/home-loan-repayment': typeof PreviewCalculatorsHomeLoanRepaymentRoute
+  '/preview/calculators/': typeof PreviewCalculatorsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/preview' | '/preview/'
+  fullPaths:
+    | '/'
+    | '/preview'
+    | '/preview/properties'
+    | '/preview/'
+    | '/preview/calculators/additional-payment'
+    | '/preview/calculators/affordability'
+    | '/preview/calculators/bond-transfer-costs'
+    | '/preview/calculators/home-loan-repayment'
+    | '/preview/calculators/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/preview'
-  id: '__root__' | '/' | '/preview' | '/preview/'
+  to:
+    | '/'
+    | '/preview/properties'
+    | '/preview'
+    | '/preview/calculators/additional-payment'
+    | '/preview/calculators/affordability'
+    | '/preview/calculators/bond-transfer-costs'
+    | '/preview/calculators/home-loan-repayment'
+    | '/preview/calculators'
+  id:
+    | '__root__'
+    | '/'
+    | '/preview'
+    | '/preview/properties'
+    | '/preview/'
+    | '/preview/calculators/additional-payment'
+    | '/preview/calculators/affordability'
+    | '/preview/calculators/bond-transfer-costs'
+    | '/preview/calculators/home-loan-repayment'
+    | '/preview/calculators/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -80,15 +165,72 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PreviewIndexRouteImport
       parentRoute: typeof PreviewRoute
     }
+    '/preview/properties': {
+      id: '/preview/properties'
+      path: '/properties'
+      fullPath: '/preview/properties'
+      preLoaderRoute: typeof PreviewPropertiesRouteImport
+      parentRoute: typeof PreviewRoute
+    }
+    '/preview/calculators/': {
+      id: '/preview/calculators/'
+      path: '/calculators'
+      fullPath: '/preview/calculators/'
+      preLoaderRoute: typeof PreviewCalculatorsIndexRouteImport
+      parentRoute: typeof PreviewRoute
+    }
+    '/preview/calculators/additional-payment': {
+      id: '/preview/calculators/additional-payment'
+      path: '/calculators/additional-payment'
+      fullPath: '/preview/calculators/additional-payment'
+      preLoaderRoute: typeof PreviewCalculatorsAdditionalPaymentRouteImport
+      parentRoute: typeof PreviewRoute
+    }
+    '/preview/calculators/affordability': {
+      id: '/preview/calculators/affordability'
+      path: '/calculators/affordability'
+      fullPath: '/preview/calculators/affordability'
+      preLoaderRoute: typeof PreviewCalculatorsAffordabilityRouteImport
+      parentRoute: typeof PreviewRoute
+    }
+    '/preview/calculators/bond-transfer-costs': {
+      id: '/preview/calculators/bond-transfer-costs'
+      path: '/calculators/bond-transfer-costs'
+      fullPath: '/preview/calculators/bond-transfer-costs'
+      preLoaderRoute: typeof PreviewCalculatorsBondTransferCostsRouteImport
+      parentRoute: typeof PreviewRoute
+    }
+    '/preview/calculators/home-loan-repayment': {
+      id: '/preview/calculators/home-loan-repayment'
+      path: '/calculators/home-loan-repayment'
+      fullPath: '/preview/calculators/home-loan-repayment'
+      preLoaderRoute: typeof PreviewCalculatorsHomeLoanRepaymentRouteImport
+      parentRoute: typeof PreviewRoute
+    }
   }
 }
 
 interface PreviewRouteChildren {
+  PreviewPropertiesRoute: typeof PreviewPropertiesRoute
   PreviewIndexRoute: typeof PreviewIndexRoute
+  PreviewCalculatorsAdditionalPaymentRoute: typeof PreviewCalculatorsAdditionalPaymentRoute
+  PreviewCalculatorsAffordabilityRoute: typeof PreviewCalculatorsAffordabilityRoute
+  PreviewCalculatorsBondTransferCostsRoute: typeof PreviewCalculatorsBondTransferCostsRoute
+  PreviewCalculatorsHomeLoanRepaymentRoute: typeof PreviewCalculatorsHomeLoanRepaymentRoute
+  PreviewCalculatorsIndexRoute: typeof PreviewCalculatorsIndexRoute
 }
 
 const PreviewRouteChildren: PreviewRouteChildren = {
+  PreviewPropertiesRoute: PreviewPropertiesRoute,
   PreviewIndexRoute: PreviewIndexRoute,
+  PreviewCalculatorsAdditionalPaymentRoute:
+    PreviewCalculatorsAdditionalPaymentRoute,
+  PreviewCalculatorsAffordabilityRoute: PreviewCalculatorsAffordabilityRoute,
+  PreviewCalculatorsBondTransferCostsRoute:
+    PreviewCalculatorsBondTransferCostsRoute,
+  PreviewCalculatorsHomeLoanRepaymentRoute:
+    PreviewCalculatorsHomeLoanRepaymentRoute,
+  PreviewCalculatorsIndexRoute: PreviewCalculatorsIndexRoute,
 }
 
 const PreviewRouteWithChildren =
