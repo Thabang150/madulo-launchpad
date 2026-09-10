@@ -12,8 +12,13 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PreviewRouteImport } from './routes/preview'
 import { Route as PreviewIndexRouteImport } from './routes/preview.index'
+import { Route as PreviewAboutRouteImport } from './routes/preview.about'
+import { Route as PreviewCommunityRouteImport } from './routes/preview.community'
+import { Route as PreviewContactRouteImport } from './routes/preview.contact'
 import { Route as PreviewDevelopmentsRouteImport } from './routes/preview.developments'
+import { Route as PreviewEstatesRouteImport } from './routes/preview.estates'
 import { Route as PreviewPropertiesRouteImport } from './routes/preview.properties'
+import { Route as PreviewTeamRouteImport } from './routes/preview.team'
 import { Route as PreviewCalculatorsIndexRouteImport } from './routes/preview.calculators.index'
 import { Route as PreviewCalculatorsAdditionalPaymentRouteImport } from './routes/preview.calculators.additional-payment'
 import { Route as PreviewCalculatorsAffordabilityRouteImport } from './routes/preview.calculators.affordability'
@@ -35,14 +40,39 @@ const PreviewIndexRoute = PreviewIndexRouteImport.update({
   path: '/',
   getParentRoute: () => PreviewRoute,
 } as any)
+const PreviewAboutRoute = PreviewAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => PreviewRoute,
+} as any)
+const PreviewCommunityRoute = PreviewCommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => PreviewRoute,
+} as any)
+const PreviewContactRoute = PreviewContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => PreviewRoute,
+} as any)
 const PreviewDevelopmentsRoute = PreviewDevelopmentsRouteImport.update({
   id: '/developments',
   path: '/developments',
   getParentRoute: () => PreviewRoute,
 } as any)
+const PreviewEstatesRoute = PreviewEstatesRouteImport.update({
+  id: '/estates',
+  path: '/estates',
+  getParentRoute: () => PreviewRoute,
+} as any)
 const PreviewPropertiesRoute = PreviewPropertiesRouteImport.update({
   id: '/properties',
   path: '/properties',
+  getParentRoute: () => PreviewRoute,
+} as any)
+const PreviewTeamRoute = PreviewTeamRouteImport.update({
+  id: '/team',
+  path: '/team',
   getParentRoute: () => PreviewRoute,
 } as any)
 const PreviewCalculatorsIndexRoute = PreviewCalculatorsIndexRouteImport.update({
@@ -78,8 +108,13 @@ const PreviewCalculatorsHomeLoanRepaymentRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/preview': typeof PreviewRouteWithChildren
+  '/preview/about': typeof PreviewAboutRoute
+  '/preview/community': typeof PreviewCommunityRoute
+  '/preview/contact': typeof PreviewContactRoute
   '/preview/developments': typeof PreviewDevelopmentsRoute
+  '/preview/estates': typeof PreviewEstatesRoute
   '/preview/properties': typeof PreviewPropertiesRoute
+  '/preview/team': typeof PreviewTeamRoute
   '/preview/': typeof PreviewIndexRoute
   '/preview/calculators/additional-payment': typeof PreviewCalculatorsAdditionalPaymentRoute
   '/preview/calculators/affordability': typeof PreviewCalculatorsAffordabilityRoute
@@ -89,8 +124,13 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/preview/about': typeof PreviewAboutRoute
+  '/preview/community': typeof PreviewCommunityRoute
+  '/preview/contact': typeof PreviewContactRoute
   '/preview/developments': typeof PreviewDevelopmentsRoute
+  '/preview/estates': typeof PreviewEstatesRoute
   '/preview/properties': typeof PreviewPropertiesRoute
+  '/preview/team': typeof PreviewTeamRoute
   '/preview': typeof PreviewIndexRoute
   '/preview/calculators/additional-payment': typeof PreviewCalculatorsAdditionalPaymentRoute
   '/preview/calculators/affordability': typeof PreviewCalculatorsAffordabilityRoute
@@ -102,8 +142,13 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/preview': typeof PreviewRouteWithChildren
+  '/preview/about': typeof PreviewAboutRoute
+  '/preview/community': typeof PreviewCommunityRoute
+  '/preview/contact': typeof PreviewContactRoute
   '/preview/developments': typeof PreviewDevelopmentsRoute
+  '/preview/estates': typeof PreviewEstatesRoute
   '/preview/properties': typeof PreviewPropertiesRoute
+  '/preview/team': typeof PreviewTeamRoute
   '/preview/': typeof PreviewIndexRoute
   '/preview/calculators/additional-payment': typeof PreviewCalculatorsAdditionalPaymentRoute
   '/preview/calculators/affordability': typeof PreviewCalculatorsAffordabilityRoute
@@ -116,8 +161,13 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/preview'
+    | '/preview/about'
+    | '/preview/community'
+    | '/preview/contact'
     | '/preview/developments'
+    | '/preview/estates'
     | '/preview/properties'
+    | '/preview/team'
     | '/preview/'
     | '/preview/calculators/additional-payment'
     | '/preview/calculators/affordability'
@@ -127,8 +177,13 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/preview/about'
+    | '/preview/community'
+    | '/preview/contact'
     | '/preview/developments'
+    | '/preview/estates'
     | '/preview/properties'
+    | '/preview/team'
     | '/preview'
     | '/preview/calculators/additional-payment'
     | '/preview/calculators/affordability'
@@ -139,8 +194,13 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/preview'
+    | '/preview/about'
+    | '/preview/community'
+    | '/preview/contact'
     | '/preview/developments'
+    | '/preview/estates'
     | '/preview/properties'
+    | '/preview/team'
     | '/preview/'
     | '/preview/calculators/additional-payment'
     | '/preview/calculators/affordability'
@@ -177,6 +237,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PreviewIndexRouteImport
       parentRoute: typeof PreviewRoute
     }
+    '/preview/about': {
+      id: '/preview/about'
+      path: '/about'
+      fullPath: '/preview/about'
+      preLoaderRoute: typeof PreviewAboutRouteImport
+      parentRoute: typeof PreviewRoute
+    }
+    '/preview/community': {
+      id: '/preview/community'
+      path: '/community'
+      fullPath: '/preview/community'
+      preLoaderRoute: typeof PreviewCommunityRouteImport
+      parentRoute: typeof PreviewRoute
+    }
+    '/preview/contact': {
+      id: '/preview/contact'
+      path: '/contact'
+      fullPath: '/preview/contact'
+      preLoaderRoute: typeof PreviewContactRouteImport
+      parentRoute: typeof PreviewRoute
+    }
     '/preview/developments': {
       id: '/preview/developments'
       path: '/developments'
@@ -184,11 +265,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PreviewDevelopmentsRouteImport
       parentRoute: typeof PreviewRoute
     }
+    '/preview/estates': {
+      id: '/preview/estates'
+      path: '/estates'
+      fullPath: '/preview/estates'
+      preLoaderRoute: typeof PreviewEstatesRouteImport
+      parentRoute: typeof PreviewRoute
+    }
     '/preview/properties': {
       id: '/preview/properties'
       path: '/properties'
       fullPath: '/preview/properties'
       preLoaderRoute: typeof PreviewPropertiesRouteImport
+      parentRoute: typeof PreviewRoute
+    }
+    '/preview/team': {
+      id: '/preview/team'
+      path: '/team'
+      fullPath: '/preview/team'
+      preLoaderRoute: typeof PreviewTeamRouteImport
       parentRoute: typeof PreviewRoute
     }
     '/preview/calculators/': {
@@ -230,8 +325,13 @@ declare module '@tanstack/react-router' {
 }
 
 interface PreviewRouteChildren {
+  PreviewAboutRoute: typeof PreviewAboutRoute
+  PreviewCommunityRoute: typeof PreviewCommunityRoute
+  PreviewContactRoute: typeof PreviewContactRoute
   PreviewDevelopmentsRoute: typeof PreviewDevelopmentsRoute
+  PreviewEstatesRoute: typeof PreviewEstatesRoute
   PreviewPropertiesRoute: typeof PreviewPropertiesRoute
+  PreviewTeamRoute: typeof PreviewTeamRoute
   PreviewIndexRoute: typeof PreviewIndexRoute
   PreviewCalculatorsAdditionalPaymentRoute: typeof PreviewCalculatorsAdditionalPaymentRoute
   PreviewCalculatorsAffordabilityRoute: typeof PreviewCalculatorsAffordabilityRoute
@@ -241,8 +341,13 @@ interface PreviewRouteChildren {
 }
 
 const PreviewRouteChildren: PreviewRouteChildren = {
+  PreviewAboutRoute: PreviewAboutRoute,
+  PreviewCommunityRoute: PreviewCommunityRoute,
+  PreviewContactRoute: PreviewContactRoute,
   PreviewDevelopmentsRoute: PreviewDevelopmentsRoute,
+  PreviewEstatesRoute: PreviewEstatesRoute,
   PreviewPropertiesRoute: PreviewPropertiesRoute,
+  PreviewTeamRoute: PreviewTeamRoute,
   PreviewIndexRoute: PreviewIndexRoute,
   PreviewCalculatorsAdditionalPaymentRoute:
     PreviewCalculatorsAdditionalPaymentRoute,
