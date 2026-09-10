@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { PropertyCard } from "@/components/site/PropertyCard";
 import { PropertyFilters } from "@/components/site/PropertyFilters";
 import { emptyFilters, featuredListings, categoryOptions } from "@/lib/listings";
+import heroImage from "@/assets/madulo hero.jpg";
 import { siteConfig } from "@/config/site";
 import { P } from "@/lib/paths";
 
@@ -62,9 +63,7 @@ function HomePage() {
       <section className="border-b border-border">
         <div
           className="relative bg-cover bg-center py-20 lg:py-28"
-          style={{
-            backgroundImage: "url('/src/assets/madulo hero.jpg')",
-          }}
+          style={{ backgroundImage: `url(${heroImage})` }}
         >
           <div className="absolute inset-0 bg-black/40" />
           <div className="container-site relative z-10">
