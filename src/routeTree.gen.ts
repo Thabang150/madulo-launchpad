@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as PreviewRouteImport } from './routes/preview'
 import { Route as PreviewIndexRouteImport } from './routes/preview.index'
+import { Route as PreviewDevelopmentsRouteImport } from './routes/preview.developments'
 import { Route as PreviewPropertiesRouteImport } from './routes/preview.properties'
 import { Route as PreviewCalculatorsIndexRouteImport } from './routes/preview.calculators.index'
 import { Route as PreviewCalculatorsAdditionalPaymentRouteImport } from './routes/preview.calculators.additional-payment'
@@ -32,6 +33,11 @@ const PreviewRoute = PreviewRouteImport.update({
 const PreviewIndexRoute = PreviewIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => PreviewRoute,
+} as any)
+const PreviewDevelopmentsRoute = PreviewDevelopmentsRouteImport.update({
+  id: '/developments',
+  path: '/developments',
   getParentRoute: () => PreviewRoute,
 } as any)
 const PreviewPropertiesRoute = PreviewPropertiesRouteImport.update({
@@ -72,6 +78,7 @@ const PreviewCalculatorsHomeLoanRepaymentRoute =
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/preview': typeof PreviewRouteWithChildren
+  '/preview/developments': typeof PreviewDevelopmentsRoute
   '/preview/properties': typeof PreviewPropertiesRoute
   '/preview/': typeof PreviewIndexRoute
   '/preview/calculators/additional-payment': typeof PreviewCalculatorsAdditionalPaymentRoute
@@ -82,6 +89,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/preview/developments': typeof PreviewDevelopmentsRoute
   '/preview/properties': typeof PreviewPropertiesRoute
   '/preview': typeof PreviewIndexRoute
   '/preview/calculators/additional-payment': typeof PreviewCalculatorsAdditionalPaymentRoute
@@ -94,6 +102,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/preview': typeof PreviewRouteWithChildren
+  '/preview/developments': typeof PreviewDevelopmentsRoute
   '/preview/properties': typeof PreviewPropertiesRoute
   '/preview/': typeof PreviewIndexRoute
   '/preview/calculators/additional-payment': typeof PreviewCalculatorsAdditionalPaymentRoute
@@ -107,6 +116,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/preview'
+    | '/preview/developments'
     | '/preview/properties'
     | '/preview/'
     | '/preview/calculators/additional-payment'
@@ -117,6 +127,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/preview/developments'
     | '/preview/properties'
     | '/preview'
     | '/preview/calculators/additional-payment'
@@ -128,6 +139,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/preview'
+    | '/preview/developments'
     | '/preview/properties'
     | '/preview/'
     | '/preview/calculators/additional-payment'
@@ -163,6 +175,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/preview/'
       preLoaderRoute: typeof PreviewIndexRouteImport
+      parentRoute: typeof PreviewRoute
+    }
+    '/preview/developments': {
+      id: '/preview/developments'
+      path: '/developments'
+      fullPath: '/preview/developments'
+      preLoaderRoute: typeof PreviewDevelopmentsRouteImport
       parentRoute: typeof PreviewRoute
     }
     '/preview/properties': {
@@ -211,6 +230,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface PreviewRouteChildren {
+  PreviewDevelopmentsRoute: typeof PreviewDevelopmentsRoute
   PreviewPropertiesRoute: typeof PreviewPropertiesRoute
   PreviewIndexRoute: typeof PreviewIndexRoute
   PreviewCalculatorsAdditionalPaymentRoute: typeof PreviewCalculatorsAdditionalPaymentRoute
@@ -221,6 +241,7 @@ interface PreviewRouteChildren {
 }
 
 const PreviewRouteChildren: PreviewRouteChildren = {
+  PreviewDevelopmentsRoute: PreviewDevelopmentsRoute,
   PreviewPropertiesRoute: PreviewPropertiesRoute,
   PreviewIndexRoute: PreviewIndexRoute,
   PreviewCalculatorsAdditionalPaymentRoute:
