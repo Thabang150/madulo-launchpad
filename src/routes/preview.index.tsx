@@ -32,8 +32,6 @@ const allCategories = [
   "Residential",
   "Commercial",
   "Land & Development",
-  "New Developments",
-  "Estates",
   "Rentals",
   "Investment Opportunities",
 ];
@@ -62,7 +60,7 @@ function HomePage() {
       {/* Hero */}
       <section className="border-b border-border">
         <div
-          className="relative bg-cover bg-center py-20 lg:py-28"
+          className="relative min-h-[620px] bg-cover bg-center py-20 lg:min-h-[680px] lg:py-28"
           style={{ backgroundImage: `url(${heroImage})` }}
         >
           <div className="absolute inset-0 bg-black/40" />
@@ -76,7 +74,7 @@ function HomePage() {
               one worth viewing.
             </p>
 
-            <div className="animate-rise delay-360 mt-12">
+            <div className="animate-rise delay-360 mt-10 lg:mt-14">
               <h2 className="sr-only">Find your next property</h2>
               <PropertyFilters value={filters} onChange={setFilters} variant="bar" onSubmit={search} />
             </div>
@@ -85,7 +83,7 @@ function HomePage() {
       </section>
 
       {/* Featured */}
-      <section className="container-site py-20">
+      <section className="container-site py-16 lg:py-20">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="eyebrow">Latest listings</p>
@@ -98,7 +96,7 @@ function HomePage() {
           </Button>
         </div>
 
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:mt-10 lg:grid-cols-3">
           {featuredListings.map((l) => (
             <PropertyCard key={l.id} listing={l} />
           ))}

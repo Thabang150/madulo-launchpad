@@ -12,12 +12,15 @@ export interface ListingView {
   priceValue: number;
   transaction: "sale" | "rent";
   propertyType: string;
+  propertyTypeCategory: string;
   /** Broad grouping used by the category strip, e.g. "Residential". */
   category: string;
   bedrooms?: undefined | number;
   bathrooms?: undefined | number;
   parking?: undefined | number;
   size?: undefined | string;
+  sizeValue?: undefined | number;
+  listingDate?: undefined | string;
   description?: undefined | string;
   image?: undefined | string;
   suburb?: undefined | string;
@@ -42,6 +45,21 @@ function numberOrUndefined(value: string): number | undefined {
 function priceToNumber(price: string): number {
   const digits = price.replace(/[^\d]/g, "");
   return digits ? Number.parseInt(digits, 10) : 0;
+}
+
+function sizeToNumber(size: string): number | undefined {
+  const digits = size.replace(/[^\d.]/g, "");
+  const n = Number.parseFloat(digits);
+  return Number.isFinite(n) && n > 0 ? n : undefined;
+}
+
+function propertyTypeCategoryOf(propertyType: string): string {
+  const type = propertyType.toLowerCase();
+  if (type.includes("apartment")) return "Apartment";
+  if (type.includes("townhouse")) return "Townhouse";
+  if (type.includes("house")) return "House";
+  if (type.includes("land") || type.includes("farm") || type.includes("plot")) return "Vacant Land";
+  return propertyType;
 }
 
 function categoryOf(propertyType: string): string {
@@ -77,11 +95,14 @@ function toView(l: Listing): ListingView {
     priceValue: priceToNumber(l.price),
     transaction,
     propertyType: l.propertyType,
+    propertyTypeCategory: propertyTypeCategoryOf(l.propertyType),
     category: categoryOf(l.propertyType),
     bedrooms: numberOrUndefined(l.bedrooms),
     bathrooms: numberOrUndefined(l.bathrooms),
     parking: numberOrUndefined(l.parkingSpaces),
     size: l.erfSize?.trim() || undefined,
+    sizeValue: sizeToNumber(l.erfSize),
+    listingDate: l.listingDate?.trim() || undefined,
     description: l.abbreviated?.trim() || undefined,
     image: l.galleryImgs?.[0],
     suburb,
@@ -94,7 +115,7 @@ function toView(l: Listing): ListingView {
 
 export const allListings: ListingView[] = listings.map(toView);
 
-export const propertyTypeOptions = Array.from(new Set(allListings.map((l) => l.propertyType))).sort();
+export const propertyTypeOptions = Array.from(new Set(allListings.map((l) => l.propertyTypeCategory))).sort();
 
 export const locationOptions = Array.from(
   new Set(allListings.flatMap((l) => [l.suburb, l.city].filter(Boolean) as string[])),
@@ -103,7 +124,7 @@ export const locationOptions = Array.from(
 export const categoryOptions = Array.from(new Set(allListings.map((l) => l.category))).sort();
 
 export interface ListingFilters {
-  transaction: "all" | "sale" | "rent";
+  transaction: "sale" | "rent";
   location: string;
   propertyType: string;
   category: string;
@@ -111,10 +132,13 @@ export interface ListingFilters {
   maxPrice?: number | undefined;
   bedrooms?: number | undefined;
   bathrooms?: number | undefined;
+  parking?: number | undefined;
+  minSize?: number | undefined;
+  maxSize?: number | undefined;
 }
 
 export const emptyFilters: ListingFilters = {
-  transaction: "all",
+  transaction: "sale",
   location: "",
   propertyType: "",
   category: "",
@@ -123,14 +147,17 @@ export const emptyFilters: ListingFilters = {
 export function filterListings(items: ListingView[], f: ListingFilters): ListingView[] {
   const q = f.location.trim().toLowerCase();
   return items.filter((l) => {
-    if (f.transaction !== "all" && l.transaction !== f.transaction) return false;
-    if (f.propertyType && l.propertyType !== f.propertyType) return false;
+    if (l.transaction !== f.transaction) return false;
+    if (f.propertyType && l.propertyTypeCategory !== f.propertyType) return false;
     if (f.category && l.category !== f.category) return false;
     if (q && !`${l.suburb ?? ""} ${l.city ?? ""} ${l.province ?? ""}`.toLowerCase().includes(q)) return false;
     if (f.minPrice !== undefined && l.priceValue < f.minPrice) return false;
     if (f.maxPrice !== undefined && l.priceValue > f.maxPrice) return false;
     if (f.bedrooms !== undefined && (l.bedrooms ?? 0) < f.bedrooms) return false;
     if (f.bathrooms !== undefined && (l.bathrooms ?? 0) < f.bathrooms) return false;
+    if (f.parking !== undefined && (l.parking ?? 0) < f.parking) return false;
+    if (f.minSize !== undefined && (l.sizeValue ?? 0) < f.minSize) return false;
+    if (f.maxSize !== undefined && (l.sizeValue === undefined || l.sizeValue > f.maxSize)) return false;
     return true;
   });
 }

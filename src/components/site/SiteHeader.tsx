@@ -8,10 +8,7 @@ import { P } from "@/lib/paths";
 const nav = [
   { label: "Home", to: P.home },
   { label: "Properties", to: P.properties },
-  { label: "Developments", to: P.developments },
-  { label: "Estates", to: P.estates },
   { label: "About", to: P.about },
-  { label: "Team", to: P.team },
   { label: "Community", to: P.community },
   { label: "Calculators", to: P.calculators },
 ] as const;

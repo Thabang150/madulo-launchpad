@@ -7,8 +7,6 @@ const columns = [
     title: "Explore",
     links: [
       { label: "Properties", to: P.properties },
-      { label: "Developments", to: P.developments },
-      { label: "Estates", to: P.estates },
       { label: "Calculators", to: P.calculators },
     ],
   },
@@ -16,7 +14,6 @@ const columns = [
     title: "Company",
     links: [
       { label: "About", to: P.about },
-      { label: "Team", to: P.team },
       { label: "Community", to: P.community },
       { label: "Contact", to: P.contact },
     ],

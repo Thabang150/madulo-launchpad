@@ -30,16 +30,16 @@ export function PropertyCard({ listing }: { listing: ListingView }) {
         )}
       </a>
 
-      <div className="flex flex-1 flex-col p-5">
+      <div className="flex flex-1 flex-col p-5 sm:p-6">
         <div className="flex items-baseline justify-between gap-3">
-          <p className="font-display text-2xl text-foreground">
+          <p className="font-display text-[1.7rem] leading-none text-foreground">
             {listing.price}
             {listing.transaction === "rent" && <span className="text-sm text-muted-foreground"> / month</span>}
           </p>
           <span className="eyebrow shrink-0">{listing.transaction === "rent" ? "To Rent" : "For Sale"}</span>
         </div>
 
-        <h3 className="mt-2 text-sm font-medium text-foreground">{listing.propertyType}</h3>
+        <h3 className="mt-3 text-sm font-semibold text-foreground">{listing.propertyType}</h3>
 
         {listing.location && (
           <p className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground">
@@ -49,7 +49,7 @@ export function PropertyCard({ listing }: { listing: ListingView }) {
         )}
 
         {facts.length > 0 && (
-          <ul className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
+          <ul className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 border-y border-border/70 py-3 text-xs text-muted-foreground">
             {facts.map((f) => (
               <li key={f.label} className="flex items-center gap-1.5">
                 <f.icon className="h-3.5 w-3.5" aria-hidden="true" />

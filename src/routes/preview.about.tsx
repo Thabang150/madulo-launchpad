@@ -92,7 +92,7 @@ function AboutPage() {
               <Link to={P.contact}>Contact us</Link>
             </Button>
             <Button asChild variant="outline">
-              <Link to={P.team}>Meet the team</Link>
+              <Link to={P.properties}>Browse properties</Link>
             </Button>
           </div>
         </div>
