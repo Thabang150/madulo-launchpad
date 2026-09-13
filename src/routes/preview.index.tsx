@@ -18,7 +18,6 @@ export const Route = createFileRoute("/preview/")({
     meta: [
       { title },
       { name: "description", content: description },
-      { name: "robots", content: "noindex" },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },

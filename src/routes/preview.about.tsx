@@ -1,4 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import type { LucideIcon } from "lucide-react";
+import { Compass, Handshake, Heart, ShieldCheck, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { P } from "@/lib/paths";
 import { siteConfig } from "@/config/site";
@@ -12,7 +14,6 @@ export const Route = createFileRoute("/preview/about")({
     meta: [
       { title },
       { name: "description", content: description },
-      { name: "robots", content: "noindex" },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
@@ -25,23 +26,29 @@ export const Route = createFileRoute("/preview/about")({
 const blocks = [
   {
     heading: "Our story",
-    body: "Placeholder narrative. This section will carry the story of how Madulo Properties began, the people behind it and the communities it serves, once the details are supplied.",
+    body: "Madulo Properties is a people-first property business rooted in the places we know and the relationships we build. We bring a considered, local perspective to homes, land, developments and commercial opportunities across South Africa.",
   },
   {
     heading: "Vision",
-    body: "Placeholder vision statement. A short, clear description of the future Madulo Properties is working towards.",
+    body: "To help more people make confident property decisions while contributing to places that are well cared for, connected and built for the long term.",
   },
   {
     heading: "Mission",
-    body: "Placeholder mission statement. What the business does day to day, and for whom.",
+    body: "We make property easier to navigate by presenting opportunities clearly, listening carefully to what clients need and connecting each person with the right next step.",
   },
   {
     heading: "Our approach",
-    body: "Placeholder description of how we work: how properties are presented, how clients are guided, and how each transaction is handled.",
+    body: "From the first enquiry to the final decision, we value clear information, responsive communication and practical guidance. Every property deserves an honest story, and every client deserves time to make an informed choice.",
   },
 ];
 
-const values = ["Integrity", "Clarity", "Care", "Craft", "Community"];
+const values: { name: string; description: string; icon: LucideIcon }[] = [
+  { name: "Integrity", description: "We communicate honestly and do what we say.", icon: ShieldCheck },
+  { name: "Clarity", description: "We make the important details easier to understand.", icon: Compass },
+  { name: "Care", description: "We listen closely and treat each client with respect.", icon: Heart },
+  { name: "Craft", description: "We give every property the thoughtful attention it deserves.", icon: Sparkles },
+  { name: "Community", description: "We believe property should strengthen a sense of place.", icon: Handshake },
+];
 
 function AboutPage() {
   return (
@@ -72,11 +79,16 @@ function AboutPage() {
           <p className="eyebrow">Values</p>
           <h2 className="mt-3 text-3xl text-foreground">What guides us</h2>
           <ul className="mt-8 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-5">
-            {values.map((v) => (
-              <li key={v} className="bg-card p-6 text-sm font-medium text-foreground">
-                {v}
+            {values.map((value) => {
+              const Icon = value.icon;
+              return (
+              <li key={value.name} className="bg-card p-6">
+                <Icon className="size-5 text-gold" aria-hidden="true" />
+                <h3 className="mt-5 text-sm font-semibold text-foreground">{value.name}</h3>
+                <p className="mt-2 text-xs leading-relaxed text-muted-foreground">{value.description}</p>
               </li>
-            ))}
+              );
+            })}
           </ul>
         </div>
       </section>

@@ -4,12 +4,11 @@ import { SiteFooter } from "@/components/site/SiteFooter";
 import { WhatsAppButton } from "@/components/site/WhatsAppButton";
 import { siteConfig } from "@/config/site";
 
-/** Layout for the website being developed behind the public countdown. */
+/** Main website layout. */
 export const Route = createFileRoute("/preview")({
   head: () => ({
     meta: [
-      { title: `${siteConfig.name} — Preview` },
-      { name: "robots", content: "noindex" },
+      { title: siteConfig.name },
     ],
   }),
   component: PreviewLayout,

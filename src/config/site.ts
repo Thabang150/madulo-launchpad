@@ -9,17 +9,7 @@ export const siteConfig = {
   description:
     "Madulo Properties — residential, commercial, land and development opportunities across South Africa.",
 
-  /**
-   * LAUNCH CONTROL
-   * - `isLaunched: false`  → "/" shows the Coming Soon countdown; the real site lives at /preview.
-   * - `isLaunched: true`   → "/" redirects to the real site.
-   * At launch, move the files in src/routes/preview/ to src/routes/ and replace
-   * the "/preview" prefix in links — no redesign or rebuild is required.
-   */
-  isLaunched: false,
-  launchDate: "2026-09-14T00:00:00+02:00", // 14 September 2026, 00:00 SAST
-
-  /** Base path of the real website while it is behind the countdown. */
+  /** Base path used by the website routes. */
   basePath: "/preview" as const,
 
   contact: {
