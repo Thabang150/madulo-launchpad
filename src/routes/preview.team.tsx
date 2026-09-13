@@ -56,7 +56,7 @@ function TeamPage() {
             The people behind Madulo Properties
           </h1>
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            Names, photographs and biographies below are placeholders until the team profiles are supplied.
+            Meet the people who bring a practical, personal approach to every property conversation.
           </p>
         </div>
       </section>
@@ -86,8 +86,8 @@ function TeamPage() {
           <p className="eyebrow">Culture</p>
           <h2 className="mt-3 max-w-xl text-3xl text-foreground">How we work together</h2>
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-            Placeholder description of the Madulo Properties culture — how the team supports one another, how clients
-            are looked after, and the standards held across the business.
+            We support one another, listen carefully to our clients and hold ourselves to a high standard of clear,
+            thoughtful service.
           </p>
         </div>
       </section>

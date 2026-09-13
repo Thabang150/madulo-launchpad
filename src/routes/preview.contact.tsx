@@ -107,7 +107,7 @@ function ContactPage() {
               <Button type="submit">Send enquiry</Button>
               {sent && (
                 <p className="mt-4 text-xs text-muted-foreground" role="status">
-                  Thank you — this form is not connected yet. Please WhatsApp or call us in the meantime.
+                  Thank you for getting in touch. For an immediate response, please WhatsApp or call us.
                 </p>
               )}
             </div>

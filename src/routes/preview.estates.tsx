@@ -33,7 +33,7 @@ function EstatesPage() {
             Security, lifestyle and residential estates
           </h1>
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            Estate profiles below are placeholders until each estate is confirmed with us.
+            Explore residential estates and speak to our team about finding the right fit for your lifestyle.
           </p>
         </div>
       </section>

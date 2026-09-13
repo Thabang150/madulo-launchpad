@@ -1,6 +1,6 @@
 /**
  * Central site configuration.
- * Every value here is a placeholder until Madulo Properties supplies real details.
+ * Central configuration for Madulo Properties.
  */
 export const siteConfig = {
   name: "Madulo Properties",
@@ -21,13 +21,10 @@ export const siteConfig = {
     hours: "Closes at 18:00",
   },
 
-  /** PLACEHOLDER social links — supply real URLs later. */
+  /** Active social channels. */
   social: {
-    facebook: "#",
-    instagram: "#",
-    linkedin: "#",
-    youtube: "#",
-    tiktok: "#",
+    facebook: "https://www.facebook.com/groups/371013684173643/",
+    tiktok: "https://www.tiktok.com/@madulo.africa.pro",
   },
 };
 

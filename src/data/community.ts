@@ -1,14 +1,14 @@
 import type { Article } from "./types";
 
-/** PLACEHOLDER articles — the Community hub will grow with real content over time. */
+/** Editorial topics for the Madulo journal. */
 export const articles: Article[] = [
   {
     id: "a1",
     slug: "first-time-buyer-checklist",
     title: "A calm, practical checklist for first-time buyers",
     category: "Buying",
-    excerpt: "Placeholder excerpt. A short, useful guide to the steps between deciding to buy and receiving your keys.",
-    date: "Coming soon",
+    excerpt: "A short, useful guide to the steps between deciding to buy and receiving your keys.",
+    date: "Madulo journal",
     readTime: "5 min read",
   },
   {
@@ -16,8 +16,8 @@ export const articles: Article[] = [
     slug: "preparing-your-home-to-sell",
     title: "Preparing your home to sell well",
     category: "Selling",
-    excerpt: "Placeholder excerpt. What matters, what doesn't, and how to present a property honestly and beautifully.",
-    date: "Coming soon",
+    excerpt: "What matters, what doesn't, and how to present a property honestly and beautifully.",
+    date: "Madulo journal",
     readTime: "4 min read",
   },
   {
@@ -25,8 +25,8 @@ export const articles: Article[] = [
     slug: "reading-the-market",
     title: "Reading the market without the noise",
     category: "Market Insights",
-    excerpt: "Placeholder excerpt. A measured view of trends that actually affect buyers, sellers and investors.",
-    date: "Coming soon",
+    excerpt: "A measured view of trends that actually affect buyers, sellers and investors.",
+    date: "Madulo journal",
     readTime: "6 min read",
   },
   {
@@ -34,8 +34,8 @@ export const articles: Article[] = [
     slug: "property-as-an-investment",
     title: "Thinking about property as a long-term investment",
     category: "Investment",
-    excerpt: "Placeholder excerpt. Yield, growth, and the questions worth asking before you commit.",
-    date: "Coming soon",
+    excerpt: "Yield, growth, and the questions worth asking before you commit.",
+    date: "Madulo journal",
     readTime: "7 min read",
   },
 ];

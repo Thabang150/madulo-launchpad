@@ -2,7 +2,7 @@ import { PROPERTY_PLACEHOLDER_IMAGE } from "./properties";
 import type { Estate } from "./types";
 
 const desc =
-  "Placeholder estate description. This will describe the estate's character, security, lifestyle offering, architectural guidelines and the community that lives there, once supplied.";
+  "A residential setting shaped by its character, security, lifestyle offering, architectural guidelines and community.";
 
 export const estates: Estate[] = [
   {

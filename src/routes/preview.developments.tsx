@@ -34,8 +34,7 @@ function DevelopmentsPage() {
             New and off-plan developments
           </h1>
           <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">
-            Project details below are placeholders while we prepare each development. Speak to our team to register
-            your interest.
+            Explore selected development opportunities and speak to our team about registering your interest.
           </p>
         </div>
       </section>

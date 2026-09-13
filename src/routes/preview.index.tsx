@@ -131,7 +131,7 @@ function HomePage() {
                   ) : (
                     <div className="flex h-full items-center justify-between gap-4 p-6">
                       <span className="text-sm font-medium text-muted-foreground">{c}</span>
-                      <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Coming soon</span>
+                      <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Explore soon</span>
                     </div>
                   )}
                 </li>

@@ -2,7 +2,7 @@ import { PROPERTY_PLACEHOLDER_IMAGE } from "./properties";
 import type { Development } from "./types";
 
 const desc =
-  "Placeholder development description. This section will hold the full development narrative — architecture, positioning, finishes, amenities, phasing and the story behind the project — once supplied.";
+  "A development opportunity presented with attention to its setting, design, amenities, positioning and long-term potential.";
 
 export const developments: Development[] = [
   {

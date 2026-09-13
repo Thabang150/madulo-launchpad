@@ -1,11 +1,11 @@
 import type { ListingType, Property, PropertyCategory } from "./types";
 
-/** The single placeholder image reused for every property until real imagery is supplied. */
+/** Shared listing image used where a dedicated property photograph is unavailable. */
 export const PROPERTY_PLACEHOLDER_IMAGE = "/images/property-placeholder.jpg";
 
 const img = PROPERTY_PLACEHOLDER_IMAGE;
 const desc =
-  "Placeholder description. This property listing will be replaced with real details supplied by Madulo Properties. The space is intended to describe the home, its layout, finishes, position and what makes it a considered choice.";
+  "A considered property opportunity with details covering the layout, finishes, position and features that make it a practical choice.";
 
 export const properties: Property[] = [
   {
