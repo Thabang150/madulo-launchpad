@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { PropertyCard } from "@/components/site/PropertyCard";
 import { PropertyFilters } from "@/components/site/PropertyFilters";
 import { emptyFilters, featuredListings, categoryOptions } from "@/lib/listings";
-import heroImage from "@/assets/madulo hero.jpg";
+import heroImage from "@/assets/updated-madulo-hero.png";
 import { siteConfig } from "@/config/site";
 import { P } from "@/lib/paths";
 
