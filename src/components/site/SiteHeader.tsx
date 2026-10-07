@@ -19,7 +19,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-background/95 backdrop-blur">
       <div className="container-site flex h-20 items-center justify-between gap-6">
-        <Logo size="sm" />
+        <Logo size="md" />
 
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Main">
           {nav.map((item) => (
