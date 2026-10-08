@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { PropertyCard } from "@/components/site/PropertyCard";
 import { PropertyFilters } from "@/components/site/PropertyFilters";
 import { emptyFilters, featuredListings, categoryOptions } from "@/lib/listings";
-import heroImage from "@/assets/madulo hero.jpg";
+import heroImage from "@/assets/madulo-hero.jpg";
+import brandLogo from "@/assets/madulo-properties-logo-removebg-preview.png";
 import { siteConfig } from "@/config/site";
 import { P } from "@/lib/paths";
 
@@ -63,19 +64,31 @@ function HomePage() {
           style={{ backgroundImage: `url(${heroImage})` }}
         >
           <div className="absolute inset-0 bg-black/40" />
-          <div className="container-site relative z-10">
-            <p className="eyebrow animate-rise text-white/90">{siteConfig.tagline}</p>
-            <h1 className="animate-rise delay-120 mt-6 max-w-3xl text-4xl leading-[1.08] text-white sm:text-5xl lg:text-6xl">
-              Discover property. Find your place. Connect with Madulo Properties.
-            </h1>
-            <p className="animate-rise delay-240 mt-6 max-w-xl text-base leading-relaxed text-white/80">
-              Browse the properties we currently have available across South Africa, and speak to our team when you find
-              one worth viewing.
-            </p>
+          <div className="container-site relative z-10 grid grid-cols-[minmax(0,1fr)_7rem] gap-x-4 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-center lg:gap-x-10">
+            <div className="col-span-2 flex items-start justify-between gap-4 lg:col-span-1 lg:block">
+              <p className="eyebrow animate-rise text-white/90">{siteConfig.tagline}</p>
+              <div className="animate-rise w-28 shrink-0 rounded-sm bg-white p-1.5 shadow-lg sm:w-32 lg:hidden">
+                <img src={brandLogo} alt="Madulo Properties" className="aspect-square w-full object-contain" />
+              </div>
+            </div>
+            <div className="col-span-2 lg:col-span-1">
+              <h1 className="animate-rise delay-120 mt-6 max-w-3xl text-4xl leading-[1.08] text-white sm:text-5xl lg:text-6xl">
+                Discover property. Find your place. Connect with Madulo Properties.
+              </h1>
+              <p className="animate-rise delay-240 mt-6 max-w-xl text-base leading-relaxed text-white/80">
+                Browse the properties we currently have available across South Africa, and speak to our team when you find
+                one worth viewing.
+              </p>
+            </div>
 
-            <div className="animate-rise delay-360 mt-10 lg:mt-14">
+            <div className="col-span-2 animate-rise delay-360 mt-10 lg:col-span-1 lg:mt-14">
               <h2 className="sr-only">Find your next property</h2>
               <PropertyFilters value={filters} onChange={setFilters} variant="bar" onSubmit={search} />
+            </div>
+            <div className="hidden lg:col-start-2 lg:row-start-1 lg:row-span-3 lg:flex lg:items-center lg:justify-center">
+              <div className="w-full rounded-sm bg-white p-3 shadow-lg">
+                <img src={brandLogo} alt="Madulo Properties" className="aspect-square w-full object-contain" />
+              </div>
             </div>
           </div>
         </div>
